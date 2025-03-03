@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,6 +20,7 @@ export function Profile() {
     
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -29,9 +28,9 @@ export function Profile() {
         mode: "onTouched",
     });
     
-    const onSubmit = (data) => {
-        console.log("Profile updated:", data);
-        toast.success("Profile updated successfully!");
+    const onSubmit = (data , event) => {
+        reset();
+        event.preventDefault();
     };
     
 
@@ -75,7 +74,8 @@ return (
             <div className="flex-1 px-2">
                 <label className="block mb-2 text-lg text-black dark:text-gray-200">First Name</label>
                 <input
-                type="text"
+                    {...register("firstName")}
+                    type="text"
                     placeholder="Md"
                     className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
@@ -85,26 +85,28 @@ return (
                         {errors.firstName.message}
                     </p>
                 )}
-                </div>
-                <div className="flex-1 px-2">
-                <label className="block mb-2 text-lg text-black dark:text-gray-200">Last Name</label>
-                <input
+            </div>
+            <div className="flex-1 px-2">
+            <label className="block mb-2 text-lg text-black dark:text-gray-200">Last Name</label>
+            <input
+                {...register("lastName")}
                 type="text"
-                    placeholder="Rimel"
-                    className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-                {errors.lastName && (
-                    <p className="text-red-800 bg-red-200 text-sm mt-1 flex">
-                        <RiErrorWarningLine className="mt-[3px] mx-1" />
-                        {errors.lastName.message}
-                    </p>
-                )}
-                </div>
+                placeholder="Rimel"
+                className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+            {errors.lastName && (
+                <p className="text-red-800 bg-red-200 text-sm mt-1 flex">
+                    <RiErrorWarningLine className="mt-[3px] mx-1" />
+                    {errors.lastName.message}
+                </p>
+            )}
+            </div>
             </div>
             <div className="-mx-2 md:items-center md:flex mb-9">
             <div className="flex-1 px-2 mt-4">
             <label className="block mb-2 text-lg text-black dark:text-gray-200">Email</label>
             <input
+                {...register("email")}
                 type="email"
                 placeholder="example@email.com"
                 className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -119,6 +121,7 @@ return (
             <div className="flex-1 px-2 mt-4">
             <label className="block mb-2 text-lg text-black dark:text-gray-200">Address</label>
             <input
+                {...register("address")}
                 type="text"
                 placeholder="123 Street, City, Country"
                 className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -134,7 +137,8 @@ return (
             <div className="flex-1 px-2 mt-4">
             <label className="block mb-2 text-lg text-black dark:text-gray-200">Password Changes</label>
             <input
-                type="plgsword"
+                {...register("currentPassword")}
+                type="password"
                 placeholder="Current Password"
                 className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
             />
@@ -144,22 +148,24 @@ return (
                         {errors.currentPassword.message}
                     </p>
                 )}
-        </div>
-        <div className="flex-1 px-2 mt-4">
+            </div>
+            <div className="flex-1 px-2 mt-4">
             <input
+                {...register("newPassword")}
                 type="password"
                 placeholder="New Password"
                 className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
             />
-            {errors.newPassword && (
-                    <p className="text-red-800 bg-red-200 text-sm mt-1 flex">
-                        <RiErrorWarningLine className="mt-[3px] mx-1" />
-                        {errors.newPassword.message}
-                    </p>
-                )}
-        </div>
-        <div className="flex-1 px-2 mt-4">
+                {errors.newPassword && (
+                        <p className="text-red-800 bg-red-200 text-sm mt-1 flex">
+                            <RiErrorWarningLine className="mt-[3px] mx-1" />
+                            {errors.newPassword.message}
+                        </p>
+                    )}
+            </div>
+            <div className="flex-1 px-2 mt-4">
             <input
+                {...register("confirmPassword")}
                 type="password"
                 placeholder="Confirm New Password"
                 className="block w-full px-5 text-sm py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"

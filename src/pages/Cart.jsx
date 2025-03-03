@@ -8,7 +8,6 @@ function Cart() {
     const navigate = useNavigate();
 
     const handleCheckout = () => {
-        toast.success("Checkout successful");
         navigate("/checkout");
     };
 

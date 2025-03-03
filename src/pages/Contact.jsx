@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +19,7 @@ export function Contact() {
     
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -27,9 +27,9 @@ export function Contact() {
         mode: "onTouched",
     });
     
-    const onSubmit = (data) => {
-        console.log("Message sent:", data);
-        toast.success("Message sent successfully!");
+    const onSubmit = (data , event) => {
+        reset();
+        event.preventDefault();
     };
     
 
@@ -76,6 +76,7 @@ return (
             <div className="-mx-2 md:items-center md:flex mb-9">
                 <div className="flex-1 px-2">
                 <input
+                    {...register("name")}
                     type="text"
                     placeholder="Your Name *"
                     className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -89,6 +90,7 @@ return (
                 </div>
                 <div className="flex-1 px-2 mt-4 md:mt-0">
                 <input
+                    {...register("email")}
                     type="email"
                     placeholder="Your Email *"
                     className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -102,6 +104,7 @@ return (
                 </div>
                 <div className="flex-1 px-2 mt-4 md:mt-0">
                 <input
+                    {...register("phone")}
                     type="tel"
                     placeholder="Your Phone *"
                     className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-500 bg-gray-100 rounded dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
