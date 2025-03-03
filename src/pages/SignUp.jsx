@@ -32,18 +32,14 @@ const SignUp = () => {
 
     return (
         <div className="flex flex-col md:flex-row h-screen">
-            {/* Left Side Image (Hidden on Small Screens) */}
             <div className="hidden md:flex md:w-1/2 justify-center items-center">
                 <img src={sign} alt="Sign Up" className="w-full h-[85%] object-cover" />
             </div>
-
-            {/* Right Side Form */}
             <div className="w-full md:w-1/2 flex justify-center items-center bg-white p-6">
                 <div className="w-full max-w-md">
                     <h1 className="text-2xl md:text-3xl font-medium mb-4">Create an Account</h1>
                     <p className="text-gray-500 mb-6">Enter your details below</p>
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-                        {/* Name Input */}
                         <div className="relative z-0 w-full mb-5">
                             <input
                                 type="text"
@@ -58,8 +54,6 @@ const SignUp = () => {
                                 </p>
                             )}
                         </div>
-
-                        {/* Email Input */}
                         <div className="relative z-0 w-full mb-5">
                             <input
                                 type="email"
@@ -74,8 +68,6 @@ const SignUp = () => {
                                 </p>
                             )}
                         </div>
-
-                        {/* Password Input */}
                         <div className="relative z-0 w-full mb-5">
                             <input
                                 type="password"
@@ -90,8 +82,6 @@ const SignUp = () => {
                                 </p>
                             )}
                         </div>
-
-                        {/* Submit & Google Sign-Up Buttons */}
                         <div className="flex flex-col gap-3 mt-6">
                             <button type="submit" className="w-full bg-red-500 text-white py-3 rounded-md hover:bg-red-600 transition">
                                 Create Account
@@ -106,8 +96,6 @@ const SignUp = () => {
                             </button>
                         </div>
                     </form>
-
-                    {/* Login Redirect */}
                     <p className="mt-4 text-center text-sm text-gray-500">
                         Already have an account?{" "}
                         <span onClick={() => navigate("/login")} className="text-black underline cursor-pointer">

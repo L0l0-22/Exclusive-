@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RiErrorWarningLine } from "react-icons/ri";
+import toast from "react-hot-toast";
 
 export function Profile() {
     const schema = yup.object().shape({
@@ -31,12 +31,12 @@ export function Profile() {
     const onSubmit = (data , event) => {
         reset();
         event.preventDefault();
+        toast.success("Your profile has been updated");
     };
     
 
 return (
     <section className="bg-white dark:bg-gray-900 w-[90%] mx-auto">
-    <Toaster position="top-right" reverseOrder={false} />
     <div className="container px-6 py-12 mx-auto">
     <div className="flex flex-col sm:flex-row justify-between md:items-center items-start py-2 gap-2 md:gap-0">
     <p className="font-normal text-gray-500">
@@ -181,6 +181,7 @@ return (
                 <p className=" md:text-lg text-center mx-5 pt-2">Cancel</p>
                 <button
                 type="submit"
+                onClick={handleSubmit(onSubmit)}
                 className=" w-1/2 md:w-1/4 text-sm font-medium py-3 text-white capitalize transition-colors duration-300 transform bg-red-500 rounded hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
                 >
                 Save Changes

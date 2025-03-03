@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RiErrorWarningLine } from "react-icons/ri";
+import toast from "react-hot-toast";
 
 
 export function Contact() {
@@ -16,7 +16,6 @@ export function Contact() {
             .matches(/^\d{10,15}$/, "Phone number must be 10-15 digits")
             .required("Phone number is required"),
     });
-    
     const {
         register,
         reset,
@@ -26,16 +25,15 @@ export function Contact() {
         resolver: yupResolver(schema),
         mode: "onTouched",
     });
-    
     const onSubmit = (data , event) => {
         reset();
         event.preventDefault();
+        toast.success("Your message has been sent");
     };
     
 
 return (
     <section className="bg-white dark:bg-gray-900 w-[90%] mx-auto">
-    <Toaster position="top-right" reverseOrder={false} />
     <div className="container px-6 py-12 mx-auto">
         <p className="font-normal text-gray-500">
         Home / <span className="text-black">Contact</span>
@@ -126,6 +124,7 @@ return (
             <div className="flex justify-end">
                 <button
                 type="submit"
+                onClick={handleSubmit(onSubmit)}
                 className=" lg:w-1/4 px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
                 >
                 Send message
